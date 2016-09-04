@@ -1,0 +1,68 @@
+{
+    "name": "yii2cmf",
+    "description": "yii2内容管理框架",
+    "keywords": ["yii2", "cmf"],
+    "homepage": "http://www.51siyuan.cn/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": ">=2.0.8",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+        "kartik-v/yii2-widget-datetimepicker": "^1.4",
+        "kartik-v/yii2-widget-datepicker": "^1.3",
+        "yiisoft/yii2-authclient": "^2.0",
+        "aferrandini/PHPQRCode": "1.0.1",
+        "yiisoft/yii2-redis": "*",
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "yiisoft/yii2-composer": "2.0.4",
+        "yidashi/yii2-bootstrap-markdown": "2.0.1",
+        "yidashi/yii2-webuploader": "^1.4.2",
+        "yidashi/yii2-ueditor": "1.0.1",
+        "mihaildev/yii2-elfinder": "^1.0",
+        "qiniu/php-sdk": "^7.0",
+        "omnilight/yii2-scheduling": "*",
+        "vlucas/phpdotenv": "^2.0",
+        "vova07/yii2-imperavi-widget": "*",
+        "bower-asset/blueimp-file-upload" : "*",
+        "bower-asset/font-awesome": "^4.0",
+        "2amigos/yii2-editable-widget": "0.1.*",
+        "raulfraile/distill": "@stable",
+        "yiisoft/yii2-imagine": "^2.0",
+        "fabpot/goutte": "^3.1",
+        "kartik-v/yii2-widget-select2": "*",
+        "udokmeci/yii2-beanstalk": "dev-master",
+        "hightman/xunsearch": "*@beta",
+        "bower-asset/pace": "^1.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
+        "jamband/yii2-schemadump": "*"
+    },
+    "autoload": {
+        "files": [
+            "helpers.php"
+        ]
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
