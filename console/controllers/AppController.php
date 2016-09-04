@@ -8,7 +8,6 @@
  * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link      http://orzm.net
  * @author    alex<lxiangcn@gmail.com>
- * @date      16-9-5 上午12:43
  */
 
 namespace console\controllers;
