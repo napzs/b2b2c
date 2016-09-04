@@ -12,9 +12,15 @@ class Fzn extends SpiderAbstract
 
         return $content;
     }
+
     protected function getCover($listNode)
     {
-        $cover = strpos($listNode->parents('.excerpt')->filter('img')->attr('src'), 'http') === false ? $this->config['domain'].$listNode->parents('.excerpt')->filter('img')->attr('src') : $listNode->parents('.excerpt')->filter('img')->attr('src');
+        $cover = strpos($listNode->parents('.excerpt')->filter('img')
+                                 ->attr('src'), 'http') === false ? $this->config['domain'] . $listNode->parents('.excerpt')
+                                                                                                       ->filter('img')
+                                                                                                       ->attr('src') : $listNode->parents('.excerpt')
+                                                                                                                                ->filter('img')
+                                                                                                                                ->attr('src');
 
         return $cover;
     }

@@ -1,8 +1,14 @@
 <?php
 /**
- * author: yidashi
- * Date: 2015/11/17
- * Time: 14:34.
+ *
+ * hbshop
+ *
+ * @package   console\QueueController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    alex<lxiangcn@gmail.com>
+ * @date      16-9-5 上午12:43
  */
 namespace console\controllers;
 
@@ -23,19 +29,20 @@ class QueueController extends Controller
         }
 
         $logLevel = 0;
-        $LOGGING = getenv('LOGGING');
-        $VERBOSE = getenv('VERBOSE');
+        $LOGGING  = getenv('LOGGING');
+        $VERBOSE  = getenv('VERBOSE');
         $VVERBOSE = getenv('VVERBOSE');
         if (!empty($LOGGING) || !empty($VERBOSE)) {
             $logLevel = \Resque_Worker::LOG_NORMAL;
-        } elseif (!empty($VVERBOSE)) {
+        }
+        elseif (!empty($VVERBOSE)) {
             $logLevel = \Resque_Worker::LOG_VERBOSE;
         }
 
         $APP_INCLUDE = getenv('APP_INCLUDE');
         if ($APP_INCLUDE) {
             if (!file_exists($APP_INCLUDE)) {
-                die('APP_INCLUDE ('.$APP_INCLUDE.") does not exist.\n");
+                die('APP_INCLUDE (' . $APP_INCLUDE . ") does not exist.\n");
             }
 
             require_once $APP_INCLUDE;
@@ -57,14 +64,14 @@ class QueueController extends Controller
             for ($i = 0; $i < $count; ++$i) {
                 $pid = pcntl_fork();
                 if ($pid == -1) {
-                    die('Could not fork worker '.$i."\n");
+                    die('Could not fork worker ' . $i . "\n");
                 }
                 // Child, start the worker
                 elseif (!$pid) {
-                    $queues = explode(',', $QUEUE);
-                    $worker = new \Resque_Worker($queues);
+                    $queues           = explode(',', $QUEUE);
+                    $worker           = new \Resque_Worker($queues);
                     $worker->logLevel = $logLevel;
-                    fwrite(STDOUT, '*** Starting worker '.$worker."\n");
+                    fwrite(STDOUT, '*** Starting worker ' . $worker . "\n");
                     $worker->work($interval);
                     break;
                 }
@@ -72,17 +79,16 @@ class QueueController extends Controller
         }
         // Start a single worker
         else {
-            $queues = explode(',', $QUEUE);
-            $worker = new \Resque_Worker($queues);
+            $queues           = explode(',', $QUEUE);
+            $worker           = new \Resque_Worker($queues);
             $worker->logLevel = $logLevel;
 
             $PIDFILE = getenv('PIDFILE');
             if ($PIDFILE) {
-                file_put_contents($PIDFILE, getmypid()) or
-                die('Could not write PID information to '.$PIDFILE);
+                file_put_contents($PIDFILE, getmypid()) or die('Could not write PID information to ' . $PIDFILE);
             }
 
-            fwrite(STDOUT, '*** Starting worker '.$worker."\n");
+            fwrite(STDOUT, '*** Starting worker ' . $worker . "\n");
             $worker->work($interval);
         }
     }

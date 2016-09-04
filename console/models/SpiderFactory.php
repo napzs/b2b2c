@@ -1,8 +1,14 @@
 <?php
 /**
- * author: yidashi
- * Date: 2015/11/27
- * Time: 13:37.
+ *
+ * hbshop
+ *
+ * @package   console\SpiderFactory
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    alex<lxiangcn@gmail.com>
+ * @date      16-9-5 上午12:43
  */
 namespace console\models;
 
@@ -17,12 +23,14 @@ class SpiderFactory
         if (empty($spider)) {
             throw new \Exception('不存在目标网站');
         }
-        $className = '\console\models\spider\\'.ucfirst(strtolower($name));
+        $className = '\console\models\spider\\' . ucfirst(strtolower($name));
         if (!class_exists($className)) {
             $spiderObj = new SpiderAbstract(['spiderName' => $name]);
-        } else {
+        }
+        else {
             $spiderObj = new $className();
         }
+
         return $spiderObj;
     }
 }

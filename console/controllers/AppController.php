@@ -1,9 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/7/6
- * Time: 下午3:35
+ *
+ * hbshop
+ *
+ * @package   console\AppController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    alex<lxiangcn@gmail.com>
+ * @date      16-9-5 上午12:43
  */
 
 namespace console\controllers;

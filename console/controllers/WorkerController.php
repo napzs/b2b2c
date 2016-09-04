@@ -1,9 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/8/16
- * Time: 下午9:09
+ *
+ * hbshop
+ *
+ * @package   console\WorkerController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    alex<lxiangcn@gmail.com>
+ * @date      16-9-5 上午12:43
  */
 
 namespace console\controllers;
@@ -17,12 +22,13 @@ class WorkerController extends BeanstalkController
     // Those are the default values you can override
 
     const DELAY_PRIORITY = "1000"; //Default priority
-    const DELAY_TIME = 5; //Default delay time
+    const DELAY_TIME     = 5; //Default delay time
 
     // Used for Decaying. When DELAY_MAX reached job is deleted or delayed with
     const DELAY_MAX = 3;
 
-    public function listenTubes(){
+    public function listenTubes()
+    {
         return ["tube"];
     }
 
@@ -37,11 +43,13 @@ class WorkerController extends BeanstalkController
      *                 self::DECAY
      *
      */
-    public function actionTube($job){
+    public function actionTube($job)
+    {
         $sentData = $job->getData();
         try {
             // something useful here
             print_r($sentData);
+
             return self::DELETE;
 
             /*if($everthingIsAllRight == true){
@@ -67,9 +75,11 @@ class WorkerController extends BeanstalkController
             return self::DECAY;*/
 
             // if you return anything else job is burried.
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             //If there is anything to do.
-            fwrite(STDERR, Console::ansiFormat($e."\n", [Console::FG_RED]));
+            fwrite(STDERR, Console::ansiFormat($e . "\n", [Console::FG_RED]));
+
             // you can also bury jobs to examine later
             return self::BURY;
         }
