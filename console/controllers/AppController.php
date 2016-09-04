@@ -37,7 +37,7 @@ class AppController extends Controller
 
     public $envPath = '@root/.env';
 
-    public $installFile = '@root/web/storage/install.txt';
+    public $installFile = '@root/web/storage/install.lock';
 
     public function actionSetWritable()
     {
@@ -188,7 +188,7 @@ STR;
 
     public function actionReset()
     {
-        @unlink(Yii::getAlias('@root/web/storage/install.txt'));
+        @unlink(Yii::getAlias('@root/web/storage/install.lock'));
     }
 
     public function actionUpdate()
