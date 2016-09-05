@@ -121,7 +121,7 @@ class AppController extends Controller
         }
         catch (\Exception $e) {
             $this->stderr("\n" . $e->getMessage(), Console::FG_RED);
-            $this->stderr("\n  ... 连接失败,核对数据库信息.\n\n", Console::FG_RED, Console::BOLD);
+            $this->stderr("\n连接失败,核对数据库信息.\n", Console::FG_RED, Console::BOLD);
 
             return false;
         }
@@ -144,7 +144,7 @@ class AppController extends Controller
     public function actionInstall()
     {
         if ($this->checkInstalled()) {
-            $this->stdout("\n  ... 已经安装过.\n\n", Console::FG_RED);
+            $this->stdout("系统已经初始化过，如过坚持重新安装，请删除indesll.lock文件后再执行。\n*注意，重新安装将会导致数据丢失。\n", Console::FG_RED);
             die;
         }
         $start
