@@ -1,9 +1,5 @@
 <?php
-/**
- * Author: yidashi
- * Date: 2015/11/3
- * Time: 14:54
- */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 $this->title = '重置密码';

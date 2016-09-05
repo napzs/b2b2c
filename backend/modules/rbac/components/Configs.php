@@ -10,19 +10,19 @@ use yii\helpers\ArrayHelper;
 /**
  * Configs
  * Used for configure some value. To set config you can use [[\yii\base\Application::$params]].
- * 
+ *
  * ~~~
  * return [
- *     
+ *
  *     'mdm.admin.configs' => [
  *         'db' => 'customDb',
  *         'menuTable' => 'admin_menu',
  *     ]
  * ];
  * ~~~
- * 
+ *
  * or use [[\Yii::$container]]
- * 
+ *
  * ~~~
  * Yii::$container->set('rbac\components\Configs',[
  *     'db' => 'customDb',

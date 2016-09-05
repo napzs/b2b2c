@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   LogController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use Yii;
@@ -12,16 +21,14 @@ use yii\filters\VerbFilter;
 /**
  * LogController implements the CRUD actions for SystemLog model.
  */
-class LogController extends Controller
-{
-    public function behaviors()
-    {
+class LogController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'clear' => ['post'],
+                    'clear'  => ['post'],
                 ],
             ],
         ];
@@ -29,34 +36,35 @@ class LogController extends Controller
 
     /**
      * Lists all SystemLog models.
+     *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new SystemLogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if (strcasecmp(Yii::$app->request->method, 'delete') == 0) {
             SystemLog::deleteAll($dataProvider->query->where);
+
             return $this->refresh();
         }
         $dataProvider->sort = [
-            'defaultOrder'=>['log_time'=>SORT_DESC]
+            'defaultOrder' => ['log_time' => SORT_DESC]
         ];
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single SystemLog model.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,11 +73,11 @@ class LogController extends Controller
     /**
      * Deletes an existing SystemLog model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -78,15 +86,16 @@ class LogController extends Controller
     /**
      * Finds the SystemLog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return SystemLog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = SystemLog::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

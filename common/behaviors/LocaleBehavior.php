@@ -1,5 +1,15 @@
 <?php
 
+/**
+ *
+ * hbshop
+ *
+ * @package   LocaleBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace common\behaviors;
 
 use yii\base\Behavior;
@@ -8,7 +18,7 @@ use yii\web\Application;
 
 /**
  * Class LocaleBehavior
- * @package common\behaviors
+ * @package   LocaleBehavior
  */
 class LocaleBehavior extends Behavior
 {

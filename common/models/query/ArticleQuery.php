@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/3/17
- * Time: 上午10:19
+ *
+ * hbshop
+ *
+ * @package   ArticleQuery
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace common\models\query;

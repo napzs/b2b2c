@@ -1,9 +1,5 @@
 <?php
-/**
- * author: yidashi
- * Date: 2016/1/12
- * Time: 17:05.
- */
+
 $this->title = $page->title;
 $this->params['breadcrumbs'][] = $this->title;
 list($this->title, $this->params['SEO_SITE_KEYWORDS'], $this->params['SEO_SITE_DESCRIPTION']) = $page->getMetaData();

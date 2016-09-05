@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   CategoryController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use Yii;
@@ -12,13 +21,11 @@ use yii\filters\VerbFilter;
 /**
  * CaetgoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
-{
-    public function behaviors()
-    {
+class CategoryController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -31,16 +38,17 @@ class CategoryController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ArrayDataProvider([
             'allModels' => Category::treeList(null, $result, 0, '&nbsp;&nbsp;&nbsp;&nbsp;'),
-            'key' => 'id'
+            'key'       => 'id'
         ]);
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * Displays a single Category model.
      *
@@ -48,8 +56,7 @@ class CategoryController extends Controller
      *
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -61,14 +68,15 @@ class CategoryController extends Controller
      *
      * @return mixed
      */
-    public function actionCreate($id = 0)
-    {
+    public function actionCreate($id = 0) {
         $model = new Category();
         $model->pid = $id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->cache->delete('categoryList');
+
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -83,14 +91,15 @@ class CategoryController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->cache->delete('categoryList');
+
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -105,8 +114,7 @@ class CategoryController extends Controller
      *
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -122,11 +130,11 @@ class CategoryController extends Controller
      *
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

@@ -1,13 +1,21 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   SearchModelTrait
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\models\search;
 
 use Yii;
-trait SearchModelTrait
-{
 
-    public function search($filters)
-    {
+trait SearchModelTrait {
+
+    public function search($filters) {
         /**
          * @var $query \yii\db\ActiveQuery
          */
@@ -17,8 +25,7 @@ trait SearchModelTrait
          */
         $params = Yii::$app->getRequest()->getQueryParams();
 
-        if(count($filters) == 0 || !isset($params[$this->formName()]))
-        {
+        if (count($filters) == 0 || !isset($params[$this->formName()])) {
             return $query;
         }
         $this->load($params);
@@ -31,7 +38,8 @@ trait SearchModelTrait
                     $filter,
                     $this->{$filter}
                 ]);
-            } else {
+            }
+            else {
                 $query->andFilterWhere([
                     $filter => $this->{$filter}
                 ]);

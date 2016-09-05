@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   BlockController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use common\models\Block;
@@ -9,13 +19,11 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-class BlockController extends Controller
-{
-    public function actions()
-    {
+class BlockController extends Controller {
+    public function actions() {
         return [
-            'index' => [
-                'class' => 'yii2tech\admin\actions\Index',
+            'index'  => [
+                'class'      => 'yii2tech\admin\actions\Index',
                 'modelClass' => 'common\models\Block'
             ],
             'delete' => [
@@ -28,77 +36,75 @@ class BlockController extends Controller
     /**
      * Creates a new Area model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
-    public function actionCreate($type=null)
-    {
-        if($type == null)
-        {
+    public function actionCreate($type = null) {
+        if ($type == null) {
             $type = 'text';
         }
 
-//        list($title,$model,$view,$widget) = AreaHelp::getBlockHook($type);
+        //        list($title,$model,$view,$widget) = AreaHelp::getBlockHook($type);
 
-//        $model = \Yii::createObject($model);
+        //        $model = \Yii::createObject($model);
         $model = new Block();
         $model->loadDefaultValues();
         $model->type = $type;
         $model->widget = TextWidget::className();
         $this->performAjaxValidation($model);
 
-        if ($model->load(Yii::$app->request->post()))
-        {
+        if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('common', 'created success'));
-            } else {
+            }
+            else {
                 Yii::$app->session->setFlash('error', Yii::t('common', 'created error. {0}', $model->formatErrors()));
             }
-            return  $this->refresh();
+
+            return $this->refresh();
         }
 
-        return $this->render('create',["model"=>$model]);
+        return $this->render('create', ["model" => $model]);
     }
-
-
 
 
     /**
      * Creates a new Area model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         $this->performAjaxValidation($model);
-        if ($model->load(Yii::$app->request->post()))
-        {
+        if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('common', 'updated success'));
-            } else {
+            }
+            else {
                 Yii::$app->session->setFlash('error', Yii::t('common', 'updated error. {0}', $model->formatErrors()));
             }
-            return  $this->refresh();
+
+            return $this->refresh();
         }
 
 
-        return $this->render('update',['model' => $model]);
+        return $this->render('update', ['model' => $model]);
 
     }
 
 
-    public function findModel($id)
-    {
+    public function findModel($id) {
         if (($model = Block::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
-    protected function performAjaxValidation($model)
-    {
+    protected function performAjaxValidation($model) {
         if (Yii::$app->request->isAjax && !Yii::$app->request->isPjax) {
             if ($model->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;

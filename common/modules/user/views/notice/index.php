@@ -1,11 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/7
- * Time: 上午11:45
- */
-/**
  * @var $this \yii\web\View;
  */
 $this->title = '我的通知';

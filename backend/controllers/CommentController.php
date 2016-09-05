@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   CommentController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use Yii;
@@ -12,13 +21,11 @@ use yii\filters\VerbFilter;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
-class CommentController extends Controller
-{
-    public function behaviors()
-    {
+class CommentController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -26,8 +33,7 @@ class CommentController extends Controller
         ];
     }
 
-    public function actions()
-    {
+    public function actions() {
         return [
             'delete' => 'yii2tech\\admin\\actions\\Delete'
         ];
@@ -35,13 +41,13 @@ class CommentController extends Controller
 
     /**
      * Lists all Comment models.
+     *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Comment::find(),
-            'sort' => [
+            'sort'  => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
@@ -56,11 +62,11 @@ class CommentController extends Controller
 
     /**
      * Displays a single Comment model.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -69,15 +75,16 @@ class CommentController extends Controller
     /**
      * Finds the Comment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Comment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function findModel($id)
-    {
+    public function findModel($id) {
         if (($model = Comment::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

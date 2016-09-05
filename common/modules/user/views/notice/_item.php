@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/7
- * Time: 上午11:48
- */
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 

@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   Area
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 
 namespace common\models;
 
@@ -12,7 +22,7 @@ use Yii;
  * @property string $slug
  * @property string $description
  * @property string $blocks
- * @package hass\package_name
+ * @package   Area
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */

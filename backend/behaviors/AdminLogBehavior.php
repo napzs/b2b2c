@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/7/25
- * Time: 下午12:25
+ *
+ * hbshop
+ *
+ * @package   AdminLogBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace backend\behaviors;
@@ -17,25 +21,25 @@ use yii\base\Event;
 use yii\db\ActiveRecord;
 use common\models\AdminLog;
 
-class AdminLogBehavior extends Behavior
-{
-    public function events()
-    {
+class AdminLogBehavior extends Behavior {
+    public function events() {
         return [
             Application::EVENT_BEFORE_REQUEST => 'handle'
         ];
     }
-    public function handle()
-    {
-        Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_UPDATE, [$this, 'log']);
+
+    public function handle() {
+        Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_UPDATE, [
+            $this,
+            'log'
+        ]);
     }
 
-    public function log($event)
-    {
+    public function log($event) {
         // 显示详情有待优化,不过基本功能完整齐全
-        if(!empty($event->changedAttributes)) {
+        if (!empty($event->changedAttributes)) {
             $desc = '';
-            foreach($event->changedAttributes as $name => $value) {
+            foreach ($event->changedAttributes as $name => $value) {
                 $desc .= $name . ' : ' . $value . '=>' . $event->sender->getAttribute($name) . ',';
             }
             $desc = substr($desc, 0, -1);
@@ -47,10 +51,10 @@ class AdminLogBehavior extends Behavior
             $userId = Yii::$app->user->id;
             $ip = ip2long(Yii::$app->request->userIP);
             $data = [
-                'route' => $route,
+                'route'       => $route,
                 'description' => $description,
-                'user_id' => $userId,
-                'ip' => $ip
+                'user_id'     => $userId,
+                'ip'          => $ip
             ];
             $model = new AdminLog();
             $model->setAttributes($data);

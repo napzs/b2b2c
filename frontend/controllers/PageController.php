@@ -1,8 +1,13 @@
 <?php
 /**
- * author: yidashi
- * Date: 2015/12/24
- * Time: 16:13.
+ *
+ * hbshop
+ *
+ * @package   PageController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 namespace frontend\controllers;
 

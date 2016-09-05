@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   PluginsController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use backend\models\PluginsConfig;
@@ -14,17 +23,15 @@ use yii\filters\VerbFilter;
 /**
  * ModuleController implements the CRUD actions for Module model.
  */
-class PluginsController extends Controller
-{
-    public function behaviors()
-    {
+class PluginsController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
-                    'open' => ['post'],
-                    'close' => ['post'],
-                    'install' => ['post'],
+                    'open'      => ['post'],
+                    'close'     => ['post'],
+                    'install'   => ['post'],
                     'uninstall' => ['post']
                 ],
             ],
@@ -33,10 +40,10 @@ class PluginsController extends Controller
 
     /**
      * Lists all Module models.
+     *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $plugins = Yii::$app->get("pluginManager")->findAll();
         $dataProvider = new ArrayDataProvider([
             'models' => $plugins
@@ -46,80 +53,89 @@ class PluginsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     // 安装
-    public function actionInstall()
-    {
+    public function actionInstall() {
         $id = Yii::$app->request->post('id');
         /* @var $pluginManager \common\components\PluginManager */
         $pluginManager = Yii::$app->get('pluginManager');
         $plugin = $pluginManager->findOne($id);
-        if(!$pluginManager->install($plugin)){
+        if (!$pluginManager->install($plugin)) {
             Yii::$app->session->setFlash('error', '插件安装失败');
-        } else {
+        }
+        else {
             Yii::$app->session->setFlash('success', '插件安装成功');
         }
+
         return $this->redirect(['index']);
     }
+
     //卸载
-    public function actionUninstall()
-    {
+    public function actionUninstall() {
         $id = Yii::$app->request->post('id');
         /* @var $pluginManager \common\components\PluginManager */
         $pluginManager = Yii::$app->get('pluginManager');
         $plugin = $pluginManager->findOne($id);
-        if(!$pluginManager->uninstall($plugin)){
+        if (!$pluginManager->uninstall($plugin)) {
             Yii::$app->session->setFlash('error', '插件卸载失败');
-        } else {
+        }
+        else {
             Yii::$app->session->setFlash('success', '插件卸载成功');
         }
+
         return $this->redirect(['index']);
     }
+
     // 开启
-    public function actionOpen()
-    {
+    public function actionOpen() {
         $id = Yii::$app->request->post('id');
         /* @var $pluginManager \common\components\PluginManager */
         $pluginManager = Yii::$app->get('pluginManager');
         $plugin = $pluginManager->findOne($id);
-        if(!$plugin->install){
+        if (!$plugin->install) {
             Yii::$app->session->setFlash('error', '插件没安装');
         }
-        if(!$pluginManager->open($plugin)){
+        if (!$pluginManager->open($plugin)) {
             Yii::$app->session->setFlash('error', '插件打开失败');
-        } else {
+        }
+        else {
             Yii::$app->session->setFlash('success', '插件打开成功');
         }
+
         return $this->redirect(['index']);
     }
+
     // 关闭
-    public function actionClose()
-    {
+    public function actionClose() {
         $id = Yii::$app->request->post('id');
         /* @var $pluginManager \common\components\PluginManager */
         $pluginManager = Yii::$app->get('pluginManager');
         $plugin = $pluginManager->findOne($id);
-        if(!$plugin->install){
+        if (!$plugin->install) {
             Yii::$app->session->setFlash('error', '插件没安装');
         }
-        if(!$pluginManager->close($plugin)){
+        if (!$pluginManager->close($plugin)) {
             Yii::$app->session->setFlash('error', '插件关闭失败');
-        } else {
+        }
+        else {
             Yii::$app->session->setFlash('success', '插件关闭成功');
         }
+
         return $this->redirect(['index']);
     }
 
     /**
      * 插件配置
+     *
      * @param $name
      * @return string|\yii\web\Response
      * @throws \yii\base\InvalidConfigException
      */
-    public function actionConfig($id)
-    {
+    public function actionConfig($id) {
         $model = Module::find()->where(['id' => $id])->one();
         if (empty($model) || $model->status == Module::STATUS_UNINSTALL) {
             Yii::$app->session->setFlash('error', '插件没安装');
+
             return $this->redirect(['index']);
         }
         $configs = Json::decode($model->config);
@@ -133,7 +149,7 @@ class PluginsController extends Controller
             }
         }
         $dataProvider = new ArrayDataProvider([
-            'models' => $configModels,
+            'models'     => $configModels,
             'pagination' => false
         ]);
         if (\Yii::$app->request->isPost && Model::loadMultiple($configModels, \Yii::$app->request->post()) && Model::validateMultiple($configModels)) {
@@ -141,11 +157,12 @@ class PluginsController extends Controller
             $model->config = $configs;
             $model->save();
             Yii::$app->cache->delete('pluginConfig-' . $model->name);
+
             return $this->redirect(['index']);
         }
 
         return $this->render('config', [
-            'model' => $model,
+            'model'        => $model,
             'dataProvider' => $dataProvider
         ]);
     }

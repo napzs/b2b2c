@@ -1,4 +1,15 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   Block
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
+
 namespace common\models;
 
 use Yii;
@@ -16,7 +27,7 @@ use common\enums\BooleanEnum;
  * @property integer $template
  * @property integer $cache
  * @property integer $used
- * @package hass\package_name
+ * @package   Block
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */

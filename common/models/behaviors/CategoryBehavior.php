@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/29
- * Time: 下午4:17
+ *
+ * hbshop
+ *
+ * @package   CategoryBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace common\models\behaviors;

@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   ConfigController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use Yii;
@@ -12,15 +21,13 @@ use yii\caching\TagDependency;
 /**
  * ConfigController implements the CRUD actions for Config model.
  */
-class ConfigController extends Controller
-{
+class ConfigController extends Controller {
     /**
      * Lists all Config models.
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $query = Config::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -38,8 +45,7 @@ class ConfigController extends Controller
      *
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -51,13 +57,13 @@ class ConfigController extends Controller
      *
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Config();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -72,13 +78,13 @@ class ConfigController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -93,9 +99,9 @@ class ConfigController extends Controller
      *
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
+
         return $this->redirect(['index']);
     }
 
@@ -109,11 +115,11 @@ class ConfigController extends Controller
      *
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Config::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

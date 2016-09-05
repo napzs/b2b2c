@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   Revolutionslider
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 
 namespace frontend\widgets\slider;
 
@@ -17,7 +27,7 @@ class Revolutionslider extends \yii\base\Widget{
     public $items = [];
 
     public $itemOptions = [];
-    
+
     public function init()
     {
         if (!$this->key) {
@@ -49,7 +59,7 @@ class Revolutionslider extends \yii\base\Widget{
         parent::init();
 
     }
-        
+
     public function run()
     {
         $options = $this->options;
@@ -60,21 +70,21 @@ class Revolutionslider extends \yii\base\Widget{
             echo $this->renderItems();
         }
     }
-    
+
     public function renderItems()
     {
         $options = $this->itemOptions;
         $tag = ArrayHelper::remove($options, 'tag', 'li');
-        
+
         $lines = [];
-        
+
         $items = $this->items;
-  
+
         if(!empty($items))
         {
             RevolutionsliderAsset::register($this->view);
         }
-        
+
         foreach ($items as $item)
         {
             $menu = $this->renderItem($item);
@@ -84,15 +94,15 @@ class Revolutionslider extends \yii\base\Widget{
                 $lines[] = Html::tag($tag, $menu, $options);
             }
         }
-        
+
         return implode("\n", $lines);
     }
-    
-    
+
+
     protected function renderItem($item)
     {
         $result = "";
-        
+
         if (($url = $item['image'])) {
             $result .= Html::img($url);
         }

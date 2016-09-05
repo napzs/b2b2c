@@ -10,14 +10,15 @@ class Yii extends \yii\BaseYii
 {
     public static function getVersion()
     {
-        return '0.1.0';
+        return '1.0.0';
     }
+
     public static function powered()
     {
-        return 'Powered by ' . '<a href="http://www.51siyuan.cn/" rel="external">Yii2 CMF</a>';
+        return 'Powered By ' . 'B2b2c';
     }
 }
 
 spl_autoload_register(['Yii', 'autoload'], true, true);
-Yii::$classMap = require(__DIR__ . '/vendor/yiisoft/yii2/classes.php');
+Yii::$classMap  = require(__DIR__ . '/vendor/yiisoft/yii2/classes.php');
 Yii::$container = new yii\di\Container();

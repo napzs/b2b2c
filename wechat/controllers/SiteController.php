@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   SiteController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 
 namespace wechat\controllers;
 
@@ -9,12 +19,7 @@ use yii\base\Event;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/5/20
- * Time: 下午2:58
- */
+
 class SiteController extends Controller
 {
     public function actionIndex()

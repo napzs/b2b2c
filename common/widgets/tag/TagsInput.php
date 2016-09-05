@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   TagsInput
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace common\widgets\tag;
 
 use kartik\select2\Select2;

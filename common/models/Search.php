@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/7/24
- * Time: 下午8:13
+ *
+ * hbshop
+ *
+ * @package   Search
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace common\models;

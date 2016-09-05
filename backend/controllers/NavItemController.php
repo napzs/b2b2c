@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   NavItemController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use common\models\Nav;
@@ -14,29 +23,30 @@ use yii\filters\VerbFilter;
 /**
  * NavItemController implements the CRUD actions for NavItem model.
  */
-class NavItemController extends Controller
-{
+class NavItemController extends Controller {
 
-    public function getViewPath()
-    {
+    public function getViewPath() {
         return $this->module->getViewPath() . DIRECTORY_SEPARATOR . 'nav/item';
     }
-    public function actions()
-    {
+
+    public function actions() {
         return [
             'position' => [
-                'class' => 'yii2tech\admin\actions\Position',
-                'returnUrl' => function($model){
-                    return Url::to(['/nav/update', 'id' => $model->nav_id]);
+                'class'     => 'yii2tech\admin\actions\Position',
+                'returnUrl' => function ($model) {
+                    return Url::to([
+                        '/nav/update',
+                        'id' => $model->nav_id
+                    ]);
                 }
             ]
         ];
     }
-    public function behaviors()
-    {
+
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -47,43 +57,53 @@ class NavItemController extends Controller
     /**
      * Creates a new NavItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
-    public function actionCreate($nav_id)
-    {
+    public function actionCreate($nav_id) {
         $model = new NavItem();
         $nav = Nav::findOne($nav_id);
         if (!$nav) {
             throw new HttpException(400);
         }
 
-        $model->nav_id =  $nav->id;
+        $model->nav_id = $nav->id;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', '添加成功');
-                return $this->redirect(['/nav/update', 'id' => $model->nav_id]);
+
+                return $this->redirect([
+                    '/nav/update',
+                    'id' => $model->nav_id
+                ]);
             }
         }
+
         return $this->render('create', [
             'model' => $model,
-            'nav' => $nav,
+            'nav'   => $nav,
         ]);
     }
 
     /**
      * Updates an existing NavItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('success', '更新成功');
-            return $this->redirect(['/nav/update', 'id' => $model->nav_id]);
+
+            return $this->redirect([
+                '/nav/update',
+                'id' => $model->nav_id
+            ]);
         }
+
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -92,29 +112,33 @@ class NavItemController extends Controller
     /**
      * Deletes an existing NavItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $model = $this->findModel($id);
         if ($model->delete()) {
-            return $this->redirect(['/nav/update', 'id'=>$model->nav_id]);
+            return $this->redirect([
+                '/nav/update',
+                'id' => $model->nav_id
+            ]);
         };
     }
 
     /**
      * Finds the NavItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return NavItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function findModel($id)
-    {
+    public function findModel($id) {
         if (($model = NavItem::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

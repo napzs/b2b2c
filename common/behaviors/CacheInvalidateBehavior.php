@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   CacheInvalidateBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 
 namespace common\behaviors;
 
@@ -30,7 +40,7 @@ use yii\db\ActiveRecord;
  *     ];
  * }
  * ```
- * @package common\behaviors
+ * @package   CacheInvalidateBehavior
  */
 class CacheInvalidateBehavior extends Behavior
 {

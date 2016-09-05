@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/30
- * Time: 下午2:21
- */
 
 $this->title = '搜索_' . Yii::$app->request->get('q');
 $this->params['breadcrumbs'][] = $this->title;

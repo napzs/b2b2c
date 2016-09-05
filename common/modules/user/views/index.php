@@ -2,12 +2,7 @@
 
 use common\helpers\Html;
 use yii\helpers\Url;
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/4/7
- * Time: 下午6:13
- */
+
 $this->title = '个人中心';
 ?>
 <div class="col-lg-3">

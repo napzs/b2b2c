@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/24
- * Time: 下午2:40
+ *
+ * hbshop
+ *
+ * @package   ValidateBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace api\common\behaviors;
@@ -23,7 +27,8 @@ class ValidateBehavior extends Behavior
         foreach ($rules as $rule) {
             if (is_array($rule[0])) {
                 $_attributes = array_merge($_attributes, $rule[0]);
-            } else {
+            }
+            else {
                 $_attributes[] = $rule[0];
             }
         }
@@ -33,16 +38,19 @@ class ValidateBehavior extends Behavior
             foreach ($rules as $rule) {
                 if ($rule instanceof Validator) {
                     $validators->append($rule);
-                } elseif (is_array($rule) && isset($rule[0], $rule[1])) { // attributes, validator type
-                    $validator = Validator::createValidator($rule[1], $model, (array) $rule[0], array_slice($rule, 2));
+                }
+                elseif (is_array($rule) && isset($rule[0], $rule[1])) { // attributes, validator type
+                    $validator = Validator::createValidator($rule[1], $model, (array)$rule[0], array_slice($rule, 2));
                     $validators->append($validator);
-                } else {
+                }
+                else {
                     throw new InvalidConfigException('Invalid validation rule: a rule must specify both attribute names and validator type.');
                 }
             }
         }
         $model->attributes = $data;
         $model->validate();
+
         return $model;
     }
 }

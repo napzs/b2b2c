@@ -1,24 +1,30 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   AdminLogController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
-use Yii;
 use common\models\AdminLog;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * AdminLogController implements the CRUD actions for AdminLog model.
  */
-class AdminLogController extends Controller
-{
-    public function behaviors()
-    {
+class AdminLogController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -28,13 +34,13 @@ class AdminLogController extends Controller
 
     /**
      * Lists all AdminLog models.
+     *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => AdminLog::find(),
-            'sort' => [
+            'sort'  => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
@@ -49,11 +55,11 @@ class AdminLogController extends Controller
 
     /**
      * Displays a single AdminLog model.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -62,15 +68,16 @@ class AdminLogController extends Controller
     /**
      * Finds the AdminLog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return AdminLog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = AdminLog::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

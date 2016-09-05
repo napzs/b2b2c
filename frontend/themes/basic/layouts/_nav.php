@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/30
- * Time: 上午12:06
- */
 /* @var $this \yii\web\View */
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;

@@ -1,4 +1,16 @@
 <?php
+
+/**
+ *
+ * hbshop
+ *
+ * @package   AreaController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
+
 namespace backend\controllers;
 
 use common\enums\BooleanEnum;
@@ -11,11 +23,9 @@ use yii\web\NotFoundHttpException;
 /**
  * AreaController implements the CRUD actions for Area model.
  */
-class AreaController extends Controller
-{
+class AreaController extends Controller {
 
-    public function actions()
-    {
+    public function actions() {
         return [
             'create' => [
                 'class' => 'yii2tech\admin\actions\Create',
@@ -29,16 +39,14 @@ class AreaController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render("index", [
             "blocks" => Block::find()->where(["used" => BooleanEnum::FLASE])->all(),
-            "areas" => Area::find()->all()
+            "areas"  => Area::find()->all()
         ]);
     }
 
-    public function actionUpdateBlocks()
-    {
+    public function actionUpdateBlocks() {
         Yii::$app->response->format = 'json';
         $id = \Yii::$app->getRequest()->post("id");
         $blocks = \Yii::$app->getRequest()->post("blocks");
@@ -46,21 +54,21 @@ class AreaController extends Controller
 
         $model->blocks = $blocks;
 
-        if($model->save()) {
+        if ($model->save()) {
             return [
                 'status' => true,
-                'msg' => '更新成功'
+                'msg'    => '更新成功'
             ];
-        } else {
+        }
+        else {
             return [
                 'status' => false,
-                'msg' => '更新失败'
+                'msg'    => '更新失败'
             ];
         }
     }
 
-    public function actionUpdateBlocksDelete()
-    {
+    public function actionUpdateBlocksDelete() {
         Yii::$app->response->format = 'json';
         $id = \Yii::$app->getRequest()->post("id");
         $blocks = \Yii::$app->getRequest()->post("blocks");
@@ -74,21 +82,21 @@ class AreaController extends Controller
 
         $block->used = BooleanEnum::FLASE;
 
-        if($model->save() && $block->save()) {
+        if ($model->save() && $block->save()) {
             return [
                 'status' => true,
-                'msg' => '更新成功'
+                'msg'    => '更新成功'
             ];
-        } else {
+        }
+        else {
             return [
                 'status' => false,
-                'msg' => '更新失败'
+                'msg'    => '更新失败'
             ];
         }
     }
 
-    public function actionUpdateBlocksCreate()
-    {
+    public function actionUpdateBlocksCreate() {
         Yii::$app->response->format = 'json';
         $id = \Yii::$app->getRequest()->post("id");
         $blocks = \Yii::$app->getRequest()->post("blocks");
@@ -102,17 +110,18 @@ class AreaController extends Controller
 
         $block->used = BooleanEnum::TRUE;
 
-         if($model->save() && $block->save()) {
-             return [
-                 'status' => true,
-                 'msg' => '更新成功'
-             ];
-         } else {
-             return [
-                 'status' => false,
-                 'msg' => '更新失败'
-             ];
-         }
+        if ($model->save() && $block->save()) {
+            return [
+                'status' => true,
+                'msg'    => '更新成功'
+            ];
+        }
+        else {
+            return [
+                'status' => false,
+                'msg'    => '更新失败'
+            ];
+        }
     }
 
     /**
@@ -123,17 +132,16 @@ class AreaController extends Controller
      * @return Area the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function findModel($id)
-    {
+    public function findModel($id) {
         if (($model = Area::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
-    public function newModel()
-    {
+    public function newModel() {
         return new Area();
     }
 }

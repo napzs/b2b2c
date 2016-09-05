@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   GatherController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\controllers;
 
 use Yii;
@@ -12,13 +21,11 @@ use yii\filters\VerbFilter;
 /**
  * GatherController implements the CRUD actions for Gather model.
  */
-class GatherController extends Controller
-{
-    public function behaviors()
-    {
+class GatherController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -28,10 +35,10 @@ class GatherController extends Controller
 
     /**
      * Lists all Gather models.
+     *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $dataProvider = new ActiveDataProvider([
             'query' => Gather::find(),
         ]);
@@ -43,11 +50,11 @@ class GatherController extends Controller
 
     /**
      * Displays a single Gather model.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -56,15 +63,16 @@ class GatherController extends Controller
     /**
      * Creates a new Gather model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Gather();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -74,16 +82,17 @@ class GatherController extends Controller
     /**
      * Updates an existing Gather model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
-        } else {
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -93,11 +102,11 @@ class GatherController extends Controller
     /**
      * Deletes an existing Gather model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -106,15 +115,16 @@ class GatherController extends Controller
     /**
      * Finds the Gather model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Gather the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Gather::findOne($id)) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

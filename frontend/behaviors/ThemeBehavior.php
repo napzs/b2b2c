@@ -1,8 +1,13 @@
 <?php
 /**
- * author: yidashi
- * Date: 2015/11/30
- * Time: 17:30.
+ *
+ * hbshop
+ *
+ * @package   ThemeBehavior
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 namespace frontend\behaviors;
 

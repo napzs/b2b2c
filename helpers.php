@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/6/17
- * Time: 下午9:41
- */
 
-if (! function_exists('value')) {
+
+if (!function_exists('value')) {
     /**
      * Return the default value of the given value.
      *
-     * @param  mixed  $value
+     * @param  mixed $value
      * @return mixed
      */
     function value($value)
@@ -19,12 +14,12 @@ if (! function_exists('value')) {
     }
 }
 
-if (! function_exists('env')) {
+if (!function_exists('env')) {
     /**
      * Gets the value of an environment variable. Supports boolean, empty and null.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     function env($key, $default = null)
@@ -54,14 +49,14 @@ if (! function_exists('env')) {
     }
 }
 
-if (! function_exists('url')) {
+if (!function_exists('url')) {
 
     function url($url, $scheme = false)
     {
         return \yii\helpers\Url::to($url, $scheme);
     }
 }
-if (! function_exists('array_get')) {
+if (!function_exists('array_get')) {
 
     /**
      * 通过foo.bar方式获取多维数组的值
@@ -70,8 +65,9 @@ if (! function_exists('array_get')) {
      * echo array_get($arr, b.d);
      * ```
      * 输出3
-     * @param $array
-     * @param $key
+     *
+     * @param      $array
+     * @param      $key
      * @param null $default
      * @return mixed
      */
@@ -89,7 +85,8 @@ if (! function_exists('array_get')) {
 
             if (isset($array[$segment])) {
                 $array = $array[$segment];
-            } else {
+            }
+            else {
                 return value($default);
             }
         }
@@ -98,7 +95,7 @@ if (! function_exists('array_get')) {
     }
 }
 
-if (! function_exists('p')) {
+if (!function_exists('p')) {
 
     function p($var, $die = true)
     {

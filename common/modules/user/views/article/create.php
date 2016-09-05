@@ -1,9 +1,4 @@
 <?php
-/**
- * author: yidashi
- * Date: 2015/12/3
- * Time: 10:57.
- */
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Article */

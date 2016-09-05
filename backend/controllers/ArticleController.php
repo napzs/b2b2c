@@ -1,4 +1,14 @@
 <?php
+/**
+ *
+ * hbshop
+ *
+ * @package   ArticleController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 
 namespace backend\controllers;
 
@@ -17,28 +27,34 @@ use yii\web\Response;
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
-class ArticleController extends Controller
-{
-    public function behaviors()
-    {
+class ArticleController extends Controller {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
         ];
     }
-    public function actions()
-    {
+
+    public function actions() {
         return [
             'ajax-update-field' => [
-                'class' => 'common\\actions\\AjaxUpdateFieldAction',
-                'allowFields' => ['status', 'is_top', 'is_hot', 'is_best'],
-                'findModel' => [$this, 'findModel']
+                'class'       => 'common\\actions\\AjaxUpdateFieldAction',
+                'allowFields' => [
+                    'status',
+                    'is_top',
+                    'is_hot',
+                    'is_best'
+                ],
+                'findModel'   => [
+                    $this,
+                    'findModel'
+                ]
             ],
-            'switcher' => [
+            'switcher'          => [
                 'class' => 'backend\widgets\grid\SwitcherAction'
             ]
         ];
@@ -49,13 +65,12 @@ class ArticleController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -65,36 +80,37 @@ class ArticleController extends Controller
      *
      * @return mixed
      */
-    public function actionTrash()
-    {
+    public function actionTrash() {
         $query = \common\models\Article::find()->onlyTrashed();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
+            'sort'  => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
             ]
         ]);
-        return $this->render('trash',[
+
+        return $this->render('trash', [
             'dataProvider' => $dataProvider
         ]);
     }
 
     /**
      * 还原
+     *
      * @return array
      * @throws NotFoundHttpException
      */
-    public function actionReduction()
-    {
+    public function actionReduction() {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $id = Yii::$app->request->post('id');
         $model = Article::find()->where(['id' => $id])->onlyTrashed()->one();
-        if(!$model) {
+        if (!$model) {
             throw new NotFoundHttpException('文章不存在!');
         }
         $model->restore();
+
         return [
             'message' => '操作成功'
         ];
@@ -102,31 +118,39 @@ class ArticleController extends Controller
 
     /**
      * 彻底删除
+     *
      * @return array
      * @throws NotFoundHttpException
      * @throws \Exception
      */
-    public function actionHardDelete()
-    {
+    public function actionHardDelete() {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $id = Yii::$app->request->post('id');
         $model = Article::find()->where(['id' => $id])->onlyTrashed()->one();
-        if(!$model) {
+        if (!$model) {
             throw new NotFoundHttpException('文章不存在!');
         }
         $model->delete();
+
         return [
             'message' => '操作成功'
         ];
     }
-    public function actionClear()
-    {
-        if (Article::deleteAll(['>', 'deleted_at', 0]) !== false) {
+
+    public function actionClear() {
+        if (Article::deleteAll([
+                '>',
+                'deleted_at',
+                0
+            ]) !== false
+        ) {
             Yii::$app->session->setFlash('success', '操作成功');
+
             return $this->redirect('trash');
         }
         throw new Exception('操作失败');
     }
+
     /**
      * Displays a single Article model.
      *
@@ -134,8 +158,7 @@ class ArticleController extends Controller
      *
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -148,59 +171,64 @@ class ArticleController extends Controller
      * @param string $module 文章类型
      * @return mixed
      */
-    public function actionCreate($module = 'base')
-    {
+    public function actionCreate($module = 'base') {
         $model = new Article();
         $model->status = Article::STATUS_ACTIVE;
         $dataModel = new ArticleData();
         if ($module != 'base') {
             $moduleModelClass = $this->findModule($module);
             $moduleModel = new $moduleModelClass;
-        } else {
+        }
+        else {
             $moduleModel = null;
         }
         if (Yii::$app->request->isPost) {
             $transaction = Yii::$app->db->beginTransaction();
-            try{
+            try {
                 $model->load(Yii::$app->request->post());
                 $model->module = $module;
                 $model->save();
                 $dataModel->load(Yii::$app->request->post());
                 $dataModel->id = $model->id;
                 $dataModel->save();
-                if($model->hasErrors() || $dataModel->hasErrors()) {
+                if ($model->hasErrors() || $dataModel->hasErrors()) {
                     throw new Exception('操作失败');
                 }
                 if ($module != 'base') {
                     $moduleModel->load(Yii::$app->request->post());
                     $moduleModel->id = $model->id;
                     $moduleModel->save();
-                    if($moduleModel->hasErrors()) {
+                    if ($moduleModel->hasErrors()) {
                         throw new Exception('操作失败');
                     }
                 }
 
                 $transaction->commit();
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e) {
                 $transaction->rollBack();
             }
+
             return $this->redirect(['index']);
         }
+
         return $this->render('create', [
-            'model' => $model,
-            'dataModel' => $dataModel,
+            'model'       => $model,
+            'dataModel'   => $dataModel,
             'moduleModel' => $moduleModel,
-            'module' => $module
+            'module'      => $module
         ]);
     }
-    public function findModule($name)
-    {
+
+    public function findModule($name) {
         if (($module = ArticleModule::findOne(['name' => $name])) != null) {
             return $module->model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('文章类型不存在');
         }
     }
+
     /**
      * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -209,8 +237,7 @@ class ArticleController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = Article::find()->where(['id' => $id])->with('data')->one();
         $dataModel = $model->data;
         $moduleModel = $model->extend;
@@ -221,30 +248,33 @@ class ArticleController extends Controller
                 $model->save();
                 $dataModel->load(Yii::$app->request->post());
                 $dataModel->save();
-                if($model->hasErrors() || $dataModel->hasErrors()) {
+                if ($model->hasErrors() || $dataModel->hasErrors()) {
                     throw new Exception('操作失败');
                 }
                 if ($moduleModel) {
-                    $moduleModel->load(Yii::$app->request->post()) &&
-                    $moduleModel->save();
-                    if($moduleModel->hasErrors()) {
+                    $moduleModel->load(Yii::$app->request->post()) && $moduleModel->save();
+                    if ($moduleModel->hasErrors()) {
                         throw new Exception('操作失败');
                     }
                 }
                 $transaction->commit();
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e) {
                 $transaction->rollBack();
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
+
             return $this->redirect(['index']);
         }
+
         return $this->render('update', [
-            'model' => $model,
-            'dataModel' => $dataModel,
+            'model'       => $model,
+            'dataModel'   => $dataModel,
             'moduleModel' => $moduleModel,
-            'module' => $model->module
+            'module'      => $model->module
         ]);
     }
+
     /**
      * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -253,8 +283,7 @@ class ArticleController extends Controller
      *
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->softDelete();
 
         return $this->redirect(['index']);
@@ -271,11 +300,11 @@ class ArticleController extends Controller
      *
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function findModel($id)
-    {
+    public function findModel($id) {
         if (($model = Article::find()->where(['id' => $id])->notTrashed()->one()) !== null) {
             return $model;
-        } else {
+        }
+        else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

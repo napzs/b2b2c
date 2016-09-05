@@ -1,8 +1,13 @@
 <?php
 /**
- * author: yidashi
- * Date: 2016/1/11
- * Time: 17:59.
+ *
+ * hbshop
+ *
+ * @package   SystemController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 namespace backend\controllers;
 
@@ -13,25 +18,24 @@ use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
-class SystemController extends Controller
-{
-    public function actionConfig($group = 'site')
-    {
+class SystemController extends Controller {
+    public function actionConfig($group = 'site') {
         $groups = Yii::$app->config->get('CONFIG_GROUP');
         $dataProvider = new ActiveDataProvider([
-            'query' => Config::find()->where(['group' => $group]),
+            'query'      => Config::find()->where(['group' => $group]),
             'pagination' => false
         ]);
+
         return $this->render('config', [
-            'groups' => $groups,
-            'group' => $group,
+            'groups'       => $groups,
+            'group'        => $group,
             'dataProvider' => $dataProvider
         ]);
     }
-    public function actionStoreConfig($group = 'site')
-    {
+
+    public function actionStoreConfig($group = 'site') {
         $dataProvider = new ActiveDataProvider([
-            'query' => Config::find()->where(['group' => $group]),
+            'query'      => Config::find()->where(['group' => $group]),
             'pagination' => false
         ]);
         $configs = $dataProvider->getModels();
@@ -40,7 +44,8 @@ class SystemController extends Controller
                 /* @var $config Config */
                 $config->save(false);
             }
-            TagDependency::invalidate(\Yii::$app->cache,  Yii::$app->config->cacheTag);
+            TagDependency::invalidate(\Yii::$app->cache, Yii::$app->config->cacheTag);
+
             return $this->redirect('config');
         }
     }

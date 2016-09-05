@@ -1,9 +1,5 @@
 <?php
-/**
- * author: yidashi
- * Date: 2016/1/11
- * Time: 18:01.
- */
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

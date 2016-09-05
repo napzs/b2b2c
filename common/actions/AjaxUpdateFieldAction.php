@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/7/21
- * Time: 下午11:28
+ *
+ * hbshop
+ *
+ * @package   AjaxUpdateFieldAction
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace common\actions;
@@ -22,10 +26,14 @@ class AjaxUpdateFieldAction extends \yii2tech\admin\actions\Action
     public function run()
     {
         Yii::$app->response->format = 'json';
-        $pk = Yii::$app->request->post('pk');
-        $id = unserialize(base64_decode($pk));
-        $post = Yii::$app->request->post();
-        $formModel = DynamicModel::validateData(['id' => $id, 'name' => $post['name'], 'value' => $post['value']], [
+        $pk                         = Yii::$app->request->post('pk');
+        $id                         = unserialize(base64_decode($pk));
+        $post                       = Yii::$app->request->post();
+        $formModel                  = DynamicModel::validateData([
+            'id'    => $id,
+            'name'  => $post['name'],
+            'value' => $post['value']
+        ], [
             [['id'], 'required'],
             ['name', 'in', 'range' => $this->allowFields]
         ]);
@@ -34,6 +42,7 @@ class AjaxUpdateFieldAction extends \yii2tech\admin\actions\Action
         }
         $model = $this->findModel($id);
         $model->updateAll([$post['name'] => $post['value']], ['id' => $id]);
+
         return ['status' => 1];
     }
 }

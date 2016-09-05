@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16-1-28
- * Time: 下午6:40
+ *
+ * hbshop
+ *
+ * @package   ArticleController
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace api\modules\v1\controllers;
@@ -20,17 +24,19 @@ class ArticleController extends Controller
 {
     public function actionIndex($cid = '')
     {
-        $query = Article::find()->published()->andFilterWhere(['category_id' => $cid]);
+        $query        = Article::find()->published()->andFilterWhere(['category_id' => $cid]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
+            'sort'  => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
             ]
         ]);
+
         return $dataProvider;
     }
+
     public function actionView($id = 0)
     {
         $model = Article::find()->published()->where(['id' => $id])->with('data')->one();
@@ -38,10 +44,11 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('not found');
         }
         $model->addView();
-        $model = $model->toArray([], ['data']);
+        $model                    = $model->toArray([], ['data']);
         $model['data']['content'] = \yii\helpers\Markdown::process($model['data']['content'], 'gfm');
-        $css = Url::to('/', true) . \Yii::getAlias('@web') . '/article.css';
-        $html = <<<CONTENT
+        $css                      = Url::to('/', true) . \Yii::getAlias('@web') . '/article.css';
+        $html
+                                  = <<<CONTENT
     <div class="view-title">
         <h1>{$model['title']}</h1>
     </div>
@@ -50,8 +57,9 @@ class ArticleController extends Controller
     </div>
     <div class="view-content">{$model['data']['content']}</div>
 CONTENT;
-        $model['css'] = $css;
-        $model['html'] = $html;
+        $model['css']             = $css;
+        $model['html']            = $html;
+
         return $model;
     }
 }

@@ -1,10 +1,14 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 15/12/13
- * Time: 下午2:44.
+ *
+ * hbshop
+ *
+ * @package   Share
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 namespace common\widgets\share;
 

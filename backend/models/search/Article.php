@@ -1,5 +1,14 @@
 <?php
-
+/**
+ *
+ * hbshop
+ *
+ * @package   Article
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
+ */
 namespace backend\models\search;
 
 use yii\base\Model;
@@ -9,13 +18,11 @@ use common\models\Article as ArticleModel;
 /**
  * Article represents the model behind the search form about `common\models\Article`.
  */
-class Article extends ArticleModel
-{
+class Article extends ArticleModel {
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'category_id', 'created_at', 'updated_at', 'status'], 'integer'],
             [['title', 'category', 'cover'], 'string'],
@@ -25,8 +32,7 @@ class Article extends ArticleModel
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,13 +44,11 @@ class Article extends ArticleModel
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = ArticleModel::find()->notTrashed();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
+            'query' => $query, 'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
@@ -59,14 +63,14 @@ class Article extends ArticleModel
             return $dataProvider;
         }
         $query->andFilterWhere([
-            'id' => $this->id,
-            'category_id' => $this->category_id,
-            'status' => $this->status,
+            'id' => $this->id, 'category_id' => $this->category_id, 'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'category', $this->category])
-            ->andFilterWhere(['like', 'cover', $this->cover]);
+        $query->andFilterWhere(['like', 'title', $this->title])->andFilterWhere([
+            'like', 'category', $this->category
+        ])->andFilterWhere([
+            'like', 'cover', $this->cover
+        ]);
 
         return $dataProvider;
     }

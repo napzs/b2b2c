@@ -12,7 +12,8 @@ use yii\web\Cookie;
 
 /**
  * Class SetLocaleAction
- * @package common\actions
+ *
+ * @package   SetLocaleAction
  *
  * Example:
  *
@@ -31,8 +32,7 @@ use yii\web\Cookie;
  *           ]
  *       ];
  *   }
-*/
-
+ */
 class SetLocaleAction extends Action
 {
     /**
@@ -71,8 +71,8 @@ class SetLocaleAction extends Action
             throw new InvalidParamException('Unacceptable locale');
         }
         $cookie = new Cookie([
-            'name' => $this->localeCookieName,
-            'value' => $locale,
+            'name'   => $this->localeCookieName,
+            'value'  => $locale,
             'expire' => $this->cookieExpire ?: time() + 60 * 60 * 24 * 365,
             'domain' => $this->cookieDomain ?: '',
         ]);
@@ -83,6 +83,7 @@ class SetLocaleAction extends Action
                 $locale
             ]);
         }
+
         return Yii::$app->response->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
 }

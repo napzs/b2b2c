@@ -1,19 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/2/25
- * Time: 下午2:36
+ *
+ * hbshop
+ *
+ * @package   Article
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license   http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link      http://orzm.net
+ * @author    Alex Liu<lxiangcn@gmail.com>
  */
 
 namespace api\modules\v1\models;
 
 
-class Article extends \common\models\Article
-{
+class Article extends \common\models\Article {
 
-    public function extraFields()
-    {
+    public function extraFields() {
         return ['data'];
     }
 }
