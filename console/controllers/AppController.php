@@ -121,7 +121,7 @@ class AppController extends Controller
         }
         catch (\Exception $e) {
             $this->stderr("\n" . $e->getMessage(), Console::FG_RED);
-            $this->stderr("\n连接失败,核对数据库信息.\n", Console::FG_RED, Console::BOLD);
+            $this->stderr("\n连接失败，核对数据库信息。\n", Console::FG_RED, Console::BOLD);
 
             return false;
         }
@@ -147,41 +147,20 @@ class AppController extends Controller
             $this->stdout("系统已经初始化过，如过坚持重新安装，请删除indesll.lock文件后再执行。\n*注意，重新安装将会导致数据丢失。\n", Console::FG_RED);
             die;
         }
-        $start
-            = <<<STR
-+==========================================+
-| Welcome To Setup hbSHop                  |
-| 欢迎使用 hbSHop 安装程序                 |
-+------------------------------------------+
-| Follow The on-screen Instructions Please |
-| 请按照屏幕上的提示操作以完成安装         |
-+==========================================+
-
-STR;
+        $start = "欢迎使用 hbSHop 安装程序，请按照屏幕上的提示操作以完成安装。\n";
         $this->stdout($start, Console::FG_GREEN);
         copy(Yii::getAlias('@root/.env.example'), Yii::getAlias($this->envPath));
         $this->runAction('set-writable', ['interactive' => $this->interactive]);
         $this->runAction('set-executable', ['interactive' => $this->interactive]);
         $this->runAction('set-keys', ['interactive' => $this->interactive]);
         $this->runAction('set-db', ['interactive' => $this->interactive]);
-        $appStatus = $this->select('设置当前应用模式', ['dev' => 'dev', 'prod' => 'prod']);
+        $appStatus = $this->select('设置当前应用模式', ['development' => 'dev', 'production' => 'prod']);
         $this->setEnv('YII_DEBUG', $appStatus == 'prod' ? 'false' : 'true');
         $this->setEnv('YII_ENV', $appStatus);
         Yii::$app->runAction('migrate/up', ['interactive' => false]);
         Yii::$app->runAction('cache/flush-all', ['interactive' => false]);
         file_put_contents(Yii::getAlias($this->installFile), time());
-        $end
-            = <<<STR
-+=================================================+
-| Installation Completed Successfully, Thanks you |
-| 安装成功，感谢选择和使用 hbSHop                 |
-+-------------------------------------------------+
-| 说明和注意事项：                                |
-| 一些基本的设置可以在.env文件里修改              |
-+=================================================+
-
-STR;
-
+        $end = "安装成功，感谢选择和使用 hbSHop 。\n说明和注意事项：一些基本的设置可以在.env文件里修改。\n";
         $this->stdout($end, Console::FG_GREEN);
     }
 
