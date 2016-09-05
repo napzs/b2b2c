@@ -10,7 +10,7 @@
 
 >前台访问地址: `http://localhost:8080/`<br/>
 >后台访问地址: `http://localhost:8080/admin/`<br/> 
->管理员 帐号 `hehe` 密码 `111111`
+>管理员帐号: `admin` 密码 `password`
 
 ##### 3.目录结构
 

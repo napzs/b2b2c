@@ -46,10 +46,10 @@ class m160726_093217_create_user_table extends Migration
         ]);
 
         $this->insert('{{%user}}', [
-            'username' => 'hehe',
+            'username' => 'admin',
             'auth_key' => '1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs',
-            'password_hash' => '$2y$13$lYlhIcBcs6jBr7yTd6YrWueckcs.Cvx70juIHs6wEfjtUwnA318VW',
-            'email' => 'hehe@xxx.com',
+            'password_hash' => '$2y$13$W5DoB7PtNYFYZCdXfGld7uTGdDRU.aN1Wp1x4PXMK.91jpz9qNo3S',
+            'email' => 'i@orzm.net',
             'status' => 10,
             'created_at' => 1441766741,
             'updated_at' => 1441766741,
